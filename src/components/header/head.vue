@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   props: ["signinUp", "goBack"],
   data() {
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url(../../style/mixin);
+@import "src/assets/style/mixin.scss";
 
 #head_top {
   background-color: $blue;

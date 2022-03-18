@@ -1,4 +1,4 @@
-# ele-app-test
+# ele-app-demo
 
 ## Project setup
 ```
