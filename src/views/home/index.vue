@@ -1,11 +1,67 @@
 <template>
   <div>
-    <head-top>
-      <span slot="logo" class="head_logo">
+    <head-top signin-up="home">
+      <span slot="logo" class="head_logo" @click="reload">
         <img src="@/assets/images/logo.png" alt="logo" />
         数营云
       </span>
     </head-top>
+
+    <!-- 导航栏 -->
+    <nav class="city_nav">
+      <div class="city_tip">
+        <span>当前定位城市：</span>
+        <span>定位不准时，请在城市列表中选择</span>
+      </div>
+      <router-link :to="'/city/' + guessCityid" class="guess_city">
+        <span>{{ guessCity }}</span>
+        <svg class="arrow_right">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#arrow-right"
+          ></use>
+        </svg>
+      </router-link>
+    </nav>
+
+    <section id="hot_city_container">
+      <h4 class="city_title">热门城市</h4>
+      <ul class="citylistul clear">
+        <router-link
+          tag="li"
+          v-for="item in hotcity"
+          :to="'/city/' + item.id"
+          :key="item.id"
+        >
+          {{ item.name }}
+        </router-link>
+      </ul>
+    </section>
+    <section class="group_city_container">
+      <ul class="letter_classify">
+        <li
+          v-for="(value, key, index) in sortgroupcity"
+          :key="key"
+          class="letter_classify_li"
+        >
+          <h4 class="city_title">
+            {{ key }}
+            <span v-if="index == 0">（按字母排序）</span>
+          </h4>
+          <ul class="groupcity_name_container citylistul clear">
+            <router-link
+              tag="li"
+              v-for="item in value"
+              :to="'/city/' + item.id"
+              :key="item.id"
+              class="ellipsis"
+            >
+              {{ item.name }}
+            </router-link>
+          </ul>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -14,6 +70,35 @@ import headTop from "../../components/header/head";
 export default {
   components: {
     headTop,
+  },
+  data() {
+    return {
+      guessCity: "", // 当前城市
+      guessCityId: "", // 当前城市id
+      hotcity: [], // 热门城市列表
+      groupcity: {}, // 所有城市列表
+    };
+  },
+  computed: {
+    sortgroupcity() {
+      let sortobj = {};
+      return sortobj;
+    },
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    // 初始化
+    init() {
+      // 获取当前城市
+      // 获取热门城市
+      // 获取所有城市
+    },
+    // 点击图标刷新界面
+    reload() {
+      window.location.reload();
+    },
   },
 };
 </script>

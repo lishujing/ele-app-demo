@@ -33,7 +33,7 @@
       </svg>
 
       <!-- 客户未登录，点击登录 -->
-      <span class="login_span" v-else>登录|注册</span>
+      <span class="login_span" v-else>登录 | 注册</span>
     </router-link>
   </header>
 </template>
