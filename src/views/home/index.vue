@@ -13,7 +13,7 @@
         <span>当前定位城市：</span>
         <span>定位不准时，请在城市列表中选择</span>
       </div>
-      <router-link :to="'/city/' + guessCityid" class="guess_city">
+      <router-link :to="'/city/' + guessCityId" class="guess_city">
         <span>{{ guessCity }}</span>
         <svg class="arrow_right">
           <use
@@ -40,7 +40,7 @@
     <section class="group_city_container">
       <ul class="letter_classify">
         <li
-          v-for="(value, key, index) in sortgroupcity"
+          v-for="(value, key, index) in groupcity"
           :key="key"
           class="letter_classify_li"
         >
@@ -67,6 +67,7 @@
 
 <script>
 import headTop from "../../components/header/head";
+import { cityGuess,hotcity,groupcity } from '../../api/getData'
 export default {
   components: {
     headTop,
@@ -82,6 +83,11 @@ export default {
   computed: {
     sortgroupcity() {
       let sortobj = {};
+      // 将 Unicode 编码转为一个字符
+      // var n = String.fromCharCode(65);  输出 n 为 A
+      for(let i = 65;i<=90;i++) {
+        // if(this.groupcity[])
+      }
       return sortobj;
     },
   },
@@ -92,8 +98,18 @@ export default {
     // 初始化
     init() {
       // 获取当前城市
+      cityGuess().then(res=>{
+        this.guessCity = res.name;
+        this.guessCityId = res.id;
+      })
       // 获取热门城市
+      hotcity().then(res=>{
+        this.hotcity = res;
+      })
       // 获取所有城市
+      groupcity().then(res=>{
+        this.groupcity = res;
+      })
     },
     // 点击图标刷新界面
     reload() {

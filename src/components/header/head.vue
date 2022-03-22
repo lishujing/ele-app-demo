@@ -4,7 +4,7 @@
     <slot name="logo"></slot>
 
     <!-- 点击返回 -->
-    <section class="head_goback" v-if="goack" @click="$router.go(-1)">
+    <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
       <svg
         width="100%"
         height="100%"
@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     // 获取用户信息
-    this.getUserInfo();
+    // this.getUserInfo();
   },
   methods: {
     ...mapActions(["getUserInfo"]),
