@@ -25,7 +25,14 @@ const routes = [
         path: '/city/:cityid',
         name: 'City',
         component: () => import('@/views/city/index')
-      }
+      },
+      //所有商铺列表页
+      {
+        path: '/msite',
+        name: 'Msite',
+        component: () => import('@/views/msite/index'),
+        meta: { keepAlive: true },
+      },
     ]
   }
 ];
