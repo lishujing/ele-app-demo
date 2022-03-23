@@ -19,6 +19,12 @@ const routes = [
         path:'/home',
         name:'Home',
         component:Home
+      },
+      // 当前选择城市页
+      {
+        path: '/city/:cityid',
+        name: 'City',
+        component: () => import('@/views/city/index')
       }
     ]
   }

@@ -13,49 +13,26 @@
         <span>当前定位城市：</span>
         <span>定位不准时，请在城市列表中选择</span>
       </div>
-      <router-link :to="'/city/' + guessCityId" class="guess_city">
-        <span>{{ guessCity }}</span>
-        <svg class="arrow_right">
-          <use
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xlink:href="#arrow-right"
-          ></use>
-        </svg>
-      </router-link>
+      <van-cell :title="guessCity" is-link :to="'/city/' + guessCityId" />
     </nav>
 
     <section id="hot_city_container">
       <h4 class="city_title">热门城市</h4>
       <ul class="citylistul clear">
-        <router-link
-          tag="li"
-          v-for="item in hotcity"
-          :to="'/city/' + item.id"
-          :key="item.id"
-        >
+        <router-link tag="li" v-for="item in hotcity" :to="'/city/' + item.id" :key="item.id">
           {{ item.name }}
         </router-link>
       </ul>
     </section>
     <section class="group_city_container">
       <ul class="letter_classify">
-        <li
-          v-for="(value, key, index) in groupcity"
-          :key="key"
-          class="letter_classify_li"
-        >
+        <li v-for="(value, key, index) in sortgroupcity" :key="key" class="letter_classify_li">
           <h4 class="city_title">
             {{ key }}
             <span v-if="index == 0">（按字母排序）</span>
           </h4>
           <ul class="groupcity_name_container citylistul clear">
-            <router-link
-              tag="li"
-              v-for="item in value"
-              :to="'/city/' + item.id"
-              :key="item.id"
-              class="ellipsis"
-            >
+            <router-link tag="li" v-for="item in value" :to="'/city/' + item.id" :key="item.id" class="ellipsis">
               {{ item.name }}
             </router-link>
           </ul>
@@ -66,61 +43,63 @@
 </template>
 
 <script>
-import headTop from "../../components/header/head";
-import { cityGuess,hotcity,groupcity } from '../../api/getData'
+import headTop from '../../components/header/head'
+import { cityGuess, hotcity, groupcity } from '../../api/getData'
 export default {
   components: {
     headTop,
   },
   data() {
     return {
-      guessCity: "", // 当前城市
-      guessCityId: "", // 当前城市id
+      guessCity: '', // 当前城市
+      guessCityId: '', // 当前城市id
       hotcity: [], // 热门城市列表
       groupcity: {}, // 所有城市列表
-    };
+    }
   },
   computed: {
     sortgroupcity() {
-      let sortobj = {};
+      let sortobj = {}
       // 将 Unicode 编码转为一个字符
       // var n = String.fromCharCode(65);  输出 n 为 A
-      for(let i = 65;i<=90;i++) {
-        // if(this.groupcity[])
+      for (let i = 65; i <= 90; i++) {
+        if(this.groupcity[String.fromCharCode(i)]){
+          sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
+        }
       }
       return sortobj;
     },
   },
   mounted() {
-    this.init();
+    this.init()
   },
   methods: {
     // 初始化
     init() {
       // 获取当前城市
-      cityGuess().then(res=>{
-        this.guessCity = res.name;
-        this.guessCityId = res.id;
+      cityGuess().then((res) => {
+        this.guessCity = res.name
+        this.guessCityId = res.id
       })
       // 获取热门城市
-      hotcity().then(res=>{
-        this.hotcity = res;
+      hotcity().then((res) => {
+        this.hotcity = res
       })
       // 获取所有城市
-      groupcity().then(res=>{
-        this.groupcity = res;
+      groupcity().then((res) => {
+        this.groupcity = res
       })
     },
     // 点击图标刷新界面
     reload() {
-      window.location.reload();
+      window.location.reload()
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/style/mixin.scss";
+@import '../../assets/style/mixin.scss';
 .head_logo {
   left: 0.4rem;
   font-weight: 400;
@@ -189,7 +168,7 @@ export default {
   text-indent: 0.45rem;
   border-top: 2px solid $bc;
   border-bottom: 1px solid $bc;
-  @include font(0.55rem, 1.45rem, "Helvetica Neue");
+  @include font(0.55rem, 1.45rem, 'Helvetica Neue');
   span {
     @include sc(0.475rem, #999);
   }
